@@ -1,0 +1,65 @@
+﻿@model V3_Movie_MVC_RepoPattern_EF_CodeFirst_Identity.ViewModels.MovieActorsViewModel
+
+@{
+    ViewData["Title"] = "GetActorsByMovie";
+}
+
+<h1>GetActorsByMovie</h1>
+<div class="col-md-4">
+    <form asp-action="GetActorsByMovie">
+        <div class="form-group">
+            <label class="control-label">Select Movie</label>
+            <select class="form-control" required asp-for="Movies"
+                    asp-items="Model.Movies" name="id">
+                <option value="" disabled="disabled" selected="selected">--please select--</option>
+            </select>
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+@if(Model.Actors !=null && Model.Actors.Count() > 0)
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Actors.FirstOrDefault().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actors.FirstOrDefault().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actors.FirstOrDefault().DateOfBirth)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actors.FirstOrDefault().Gender)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Actors) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+ }
